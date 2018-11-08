@@ -25,28 +25,22 @@ class ViewController: UIViewController {
     
     @IBAction func buttonPressed(){
         
-        do {
         let greeting = Greeting()
-        let deferred = try greeting.anotherGreetingAsync(context: UI())
+        let deferred = greeting.anotherGreetingAsync(context: UI())
         deferred.invokeOnCompletion(handler: { _ in
-            print("deferred completed: \(String(describing: deferred.getCompleted()))")
-            self.label.text = "\(String(describing: deferred.getCompleted()))"
+            do {
+                let result = try CommonKt.getCompletedOrThrow(deferred)
+                print("deferred completed: \(String(describing: result))")
+                self.label.text = "\(result)"
+                
+            }catch {
+                print("ERRRORRORORORORO \(error)")
+                self.label.text = "error"
+            }
+            
             return KotlinUnit()
         })
-        deferred.invokeOnCompletion(onCancelling: true, invokeImmediately: true, handler: {error in
-            guard let error = error else {return KotlinUnit()}
-            print("deferred error: \(String(describing: error))")
-            self.label.text = "Error: \(String(describing: error))"
-            return KotlinUnit()
-        })
-        label.text = "Please wait..."
-            
-        }catch {
-            
-            print("ios catched exception")
-            
-        }
-            
+                    
     }
     
 }

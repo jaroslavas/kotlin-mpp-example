@@ -12,7 +12,6 @@ class Greeting {
     fun greeting(): String = "Hello, ${Platform().platform}"
 
 
-    @Throws
     suspend fun anotherGreeting(): String {
         return runBlocking {
             delay(1500)
@@ -22,7 +21,6 @@ class Greeting {
     }
 
 
-    @Throws
     fun anotherGreetingAsync(context: CoroutineContext): Deferred<String> {
         return GlobalScope.async(context) {
             anotherGreeting()
@@ -31,6 +29,8 @@ class Greeting {
 
 }
 
+@Throws
+fun <T: Any> Deferred<T>.getCompletedOrThrow(): T = this.getCompleted()
 
 
 
