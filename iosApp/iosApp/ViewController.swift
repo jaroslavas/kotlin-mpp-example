@@ -25,11 +25,12 @@ class ViewController: UIViewController {
     
     @IBAction func buttonPressed(){
         
+        do {
         let greeting = Greeting()
-        let deferred = greeting.anotherGreetingAsync(context: UI())
+        let deferred = try greeting.anotherGreetingAsync(context: UI())
         deferred.invokeOnCompletion(handler: { _ in
             print("deferred completed: \(String(describing: deferred.getCompleted()))")
-            self.label.text = "\(String(describing: deferred.getCompleted()))"            
+            self.label.text = "\(String(describing: deferred.getCompleted()))"
             return KotlinUnit()
         })
         deferred.invokeOnCompletion(onCancelling: true, invokeImmediately: true, handler: {error in
@@ -39,6 +40,13 @@ class ViewController: UIViewController {
             return KotlinUnit()
         })
         label.text = "Please wait..."
+            
+        }catch {
+            
+            print("ios catched exception")
+            
+        }
+            
     }
     
 }

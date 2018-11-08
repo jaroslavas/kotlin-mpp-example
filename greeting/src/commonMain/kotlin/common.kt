@@ -22,6 +22,7 @@ class Greeting {
     }
 
 
+    @Throws
     fun anotherGreetingAsync(context: CoroutineContext): Deferred<String> {
         return GlobalScope.async(context) {
             anotherGreeting()
