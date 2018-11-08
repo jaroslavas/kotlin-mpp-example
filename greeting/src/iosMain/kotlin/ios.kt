@@ -6,6 +6,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import platform.posix.uname
 import platform.posix.utsname
+import kotlin.reflect.KClass
 
 actual class Platform actual constructor() {
     actual val platform: String = "iOS"
@@ -31,3 +32,5 @@ actual object Factory {
 
     actual val platform: String = "ios"
 }
+
+actual typealias Throws = kotlin.native.Throws

@@ -1,6 +1,7 @@
 package org.greeting
 
 import android.os.Build
+import kotlin.reflect.KClass
 
 actual class Platform actual constructor() {
     actual val platform: String = "Android"
@@ -20,3 +21,5 @@ actual object Factory {
 
     actual val platform: String = "android"
 }
+
+actual typealias Throws = kotlin.jvm.Throws
